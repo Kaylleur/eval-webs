@@ -26,6 +26,8 @@ Le microservice fournira aussi une méthode pour extraire les réservations d’
 
 ## 2. Définition du service
 
+Service: NotificationService
+
 ### 2.1. CreateNotification
 <pre>
     input : 
@@ -76,6 +78,7 @@ Le microservice fournira aussi une méthode pour extraire les réservations d’
 </pre>
 
 ### 2.4. ExportReservations
+Service: ExportService
 <pre>
     input : 
     {

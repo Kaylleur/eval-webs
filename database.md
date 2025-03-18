@@ -1,4 +1,4 @@
-# Database Schema
+  # Database Schema
 
 L’objectif est de stocker les informations relatives aux utilisateurs, aux salles, aux réservations et aux notifications.
 La base de données sera initialisée avec NestJS et TypeORM avec la synchronisation automatique des entités.
