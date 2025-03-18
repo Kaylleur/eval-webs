@@ -324,7 +324,7 @@ Réponse :
 // Vous pouvez vérifier le contenu de init-keycloak.js
 </pre>
 
-#### 4. PUT /api/users/{id}/extract
+#### 4. POST /api/users/{id}/extract
 Cette route permet de générer un fichier CSV récapitulatif des réservations d’un utilisateur, et de renvoyer une URL permettant de le télécharger.
 <pre>
 Path parameter :
