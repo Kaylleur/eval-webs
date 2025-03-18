@@ -18,22 +18,22 @@ type Room {
   name: String!
   capacity: Int!
   location: String
-  created_at: DateTime!
+  createdAt: DateTime!
 }
 
 type Reservation {
   id: ID!
-  user_id: Int!
-  room_id: Int!
-  start_time: DateTime!
-  end_time: DateTime!
-  created_at: DateTime!
+  userId: String!
+  roomId: String!
+  startTime: DateTime!
+  endTime: DateTime!
+  createdAt: DateTime!
 }
 
 type User {
   id: ID!
-  keycloak_id: String!
-  created_at: DateTime!
+  keycloakId: String!
+  createdAt: DateTime!
   email: String
 }
 
@@ -69,18 +69,18 @@ type Mutation {
 
   # -- Reservations --
   createReservation(
-    user_id: Int!,
-    room_id: Int!,
-    start_time: DateTime!,
-    end_time: DateTime!
+    userId: String!,
+    roomId: String!,
+    startTime: DateTime!,
+    endTime: DateTime!
   ): Reservation!
 
   updateReservation(
     id: ID!,
-    user_id: Int,
-    room_id: Int,
-    start_time: DateTime,
-    end_time: DateTime
+    userId: String,
+    roomId: String,
+    startTime: DateTime,
+    endTime: DateTime
   ): Reservation!
 
   deleteReservation(id: ID!): Boolean!

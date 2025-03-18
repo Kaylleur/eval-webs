@@ -20,11 +20,11 @@ Réponse :
 {
   "rooms": [
     {
-      "id": number,
+      "id": string,
       "name": string,
       "capacity": number,
       "location": string,
-      "created_at": string
+      "createdAt": string
     },
     ...
   ]
@@ -39,11 +39,11 @@ Path parameter :
 
 Réponse :
 {
-  "id": number,
+  "id": string,
   "name": string,
   "capacity": number,
   "location": string,
-  "created_at": string
+  "createdAt": string
 }
 </pre>
 Renvoie les détails d’une salle spécifique.
@@ -59,11 +59,11 @@ Body (JSON) :
 
 Réponse (201 Created) :
 {
-  "id": number,
+  "id": string,
   "name": string,
   "capacity": number,
   "location": string,
-  "created_at": string
+  "createdAt": string
 }
 </pre>
 Crée une nouvelle salle et renvoie l’objet créé.
@@ -82,11 +82,11 @@ Body (JSON) :
 
 Réponse :
 {
-  "id": number,
+  "id": string,
   "name": string,
   "capacity": number,
   "location": string,
-  "created_at": string
+  "createdAt": string
 }
 </pre>
 Met à jour les informations d’une salle existante.
@@ -120,12 +120,12 @@ Réponse :
 {
   "reservations": [
     {
-      "id": number,
-      "user_id": number,
-      "room_id": number,
-      "start_time": string,
-      "end_time": string,
-      "created_at": string
+      "id": string,
+      "userId": number,
+      "roomId": number,
+      "startTime": string,
+      "endTime": string,
+      "createdAt": string
     },
     ...
   ]
@@ -145,12 +145,12 @@ Codes de statut possibles :
 
 Réponse :
 {
-  "id": number,
-  "user_id": number,
-  "room_id": number,
-  "start_time": string,
-  "end_time": string,
-  "created_at": string
+  "id": string,
+  "userId": number,
+  "roomId": number,
+  "startTime": string,
+  "endTime": string,
+  "createdAt": string
 }
 </pre>
 Renvoie les détails d’une réservation spécifique.
@@ -159,10 +159,10 @@ Renvoie les détails d’une réservation spécifique.
 <pre>
 Body (JSON) :
 {
-  "user_id": number,    // Identifiant de l'utilisateur
-  "room_id": number,    // Identifiant de la salle
-  "start_time": string, // Format ISO8601 : "YYYY-MM-DDTHH:mm:ss"
-  "end_time": string    // Idem
+  "userId": number,    // Identifiant de l'utilisateur
+  "roomId": number,    // Identifiant de la salle
+  "startTime": string, // Format ISO8601 : "YYYY-MM-DDTHH:mm:ss"
+  "endTime": string    // Idem
 }
 
 Codes de statut possibles :
@@ -172,12 +172,12 @@ Codes de statut possibles :
 
 Réponse  :
 {
-  "id": number,
-  "user_id": number,
-  "room_id": number,
-  "start_time": string,
-  "end_time": string,
-  "created_at": string
+  "id": string,
+  "userId": number,
+  "roomId": number,
+  "startTime": string,
+  "endTime": string,
+  "createdAt": string
 }
 </pre>
 Crée une nouvelle réservation et renvoie l’objet créé.
@@ -195,20 +195,20 @@ Codes de statut possibles :
 
 Body (JSON) :
 {
-  "user_id": number,    // Peut être inchangé ou mis à jour
-  "room_id": number,
-  "start_time": string,
-  "end_time": string
+  "userId": number,    // Peut être inchangé ou mis à jour
+  "roomId": number,
+  "startTime": string,
+  "endTime": string
 }
 
 Réponse :
 {
-  "id": number,
-  "user_id": number,
-  "room_id": number,
-  "start_time": string,
-  "end_time": string,
-  "created_at": string
+  "id": string,
+  "userId": number,
+  "roomId": number,
+  "startTime": string,
+  "endTime": string,
+  "createdAt": string
 }
 </pre>
 Met à jour les informations d’une réservation existante.
@@ -265,9 +265,9 @@ Réponse :
 {
   "users": [
     {
-      "id": number,
-      "keycloak_id": string,
-      "created_at": string,
+      "id": string,
+      "keycloakId": string,
+      "createdAt": string,
       "email": string
     },
     ...
@@ -288,9 +288,9 @@ Codes de statut possibles :
 
 Réponse :
 {
-  "id": number,
-  "keycloak_id": string,
-  "created_at": string,
+  "id": string,
+  "keycloakId": string,
+  "createdAt": string,
   "email": string
 }
 </pre>
@@ -316,9 +316,9 @@ Codes de statut possibles :
 
 Réponse :
 {
-  "id": number,
-  "keycloak_id": string,
-  "created_at": string,
+  "id": string,
+  "keycloakId": string,
+  "createdAt": string,
   "email": string
 }
 // Vous pouvez vérifier le contenu de init-keycloak.js

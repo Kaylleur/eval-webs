@@ -32,16 +32,16 @@ Service: NotificationService
 <pre>
     input : 
     {
-        "reservation_id": number,
+        "reservationId": number,
         "message": string,
-        "notification_date": string
+        "notificationDate": string
     }
     output : 
     {
         "id": number,
-        "reservation_id": number,
+        "reservationId": number,
         "message": string,
-        "notification_date": string
+        "notificationDate": string
     }
 </pre>
 
@@ -51,14 +51,14 @@ Service: NotificationService
     {
         "id": number,
         "message": string,
-        "notification_date": string
+        "notificationDate": string
     }
     output : 
     {
         "id": number,
-        "reservation_id": number,
+        "reservationId": number,
         "message": string,
-        "notification_date": string
+        "notificationDate": string
     }   
 </pre>
 
@@ -71,9 +71,9 @@ Service: NotificationService
     output : 
     {
         "id": number,
-        "reservation_id": number,
+        "reservationId": number,
         "message": string,
-        "notification_date": string
+        "notificationDate": string
     }
 </pre>
 
@@ -82,7 +82,7 @@ Service: ExportService
 <pre>
     input : 
     {
-        "user_id": number
+        "userId": number
     }
     output : 
     {
