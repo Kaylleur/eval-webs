@@ -305,7 +305,7 @@ Body (JSON) :
   email: string,
   firstName: string,
   lastName: string,
-  password: string,
+  password: string, 
 }
 
 Codes de statut possibles :
