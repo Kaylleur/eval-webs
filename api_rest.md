@@ -35,7 +35,7 @@ Renvoie la liste paginée des salles.
 #### 2. GET /api/rooms/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de la salle
+- id : identifiant unique de la salle
 
 Réponse :
 {
@@ -71,7 +71,7 @@ Crée une nouvelle salle et renvoie l’objet créé.
 #### 4. PUT /api/rooms/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de la salle à modifier
+- id : identifiant unique de la salle à modifier
 
 Body (JSON) :
 {
@@ -94,7 +94,7 @@ Met à jour les informations d’une salle existante.
 #### 5. DELETE /api/rooms/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de la salle
+- id : identifiant unique de la salle
 
 Réponse (204 No Content) :
 Aucun corps de réponse.
@@ -136,7 +136,7 @@ Renvoie la liste paginée des réservations.
 #### 2. GET /api/reservations/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de la réservation
+- id : identifiant unique de la réservation
 
 Codes de statut possibles :
 200 OK
@@ -185,7 +185,7 @@ Crée une nouvelle réservation et renvoie l’objet créé.
 #### 4. PUT /api/reservations/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de la réservation à modifier
+- id : identifiant unique de la réservation à modifier
 
 Codes de statut possibles :
 200 OK
@@ -216,7 +216,7 @@ Met à jour les informations d’une réservation existante.
 #### 5. DELETE /api/reservations/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de la réservation
+- id : identifiant unique de la réservation
 
 Codes de statut possibles :
 204 No Content
@@ -279,7 +279,7 @@ Renvoie la liste paginée des utilisateurs (tels qu’ils sont enregistrés dans
 #### 2. GET /api/users/{id}
 <pre>
 Path parameter :
-- id : identifiant numérique de l'utilisateur
+- id : identifiant unique de l'utilisateur
 
 Codes de statut possibles :
 200 OK
@@ -328,7 +328,7 @@ Réponse :
 Cette route permet de générer un fichier CSV récapitulatif des réservations d’un utilisateur, et de renvoyer une URL permettant de le télécharger.
 <pre>
 Path parameter :
-- id : identifiant numérique de l'utilisateur
+- id : identifiant unique de l'utilisateur
 
 Codes de statut possibles :
 200 OK

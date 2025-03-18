@@ -38,7 +38,7 @@ Service: NotificationService
     }
     output : 
     {
-        "id": number,
+        "id": String,
         "reservationId": number,
         "message": string,
         "notificationDate": string
@@ -49,13 +49,13 @@ Service: NotificationService
 <pre>
     input : 
     {
-        "id": number,
+        "id": String,
         "message": string,
         "notificationDate": string
     }
     output : 
     {
-        "id": number,
+        "id": String,
         "reservationId": number,
         "message": string,
         "notificationDate": string
@@ -66,11 +66,11 @@ Service: NotificationService
 <pre>
     input : 
     {
-        "id": number
+        "id": String
     }
     output : 
     {
-        "id": number,
+        "id": String,
         "reservationId": number,
         "message": string,
         "notificationDate": string
