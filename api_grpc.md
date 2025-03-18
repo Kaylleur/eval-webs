@@ -1,7 +1,8 @@
-# gRPC Service pour la Gestion des Notifications
+# gRPC Service 
  
 **Contexte** : Les notifications doivent être créées automatiquement lors de la création d’une réservation et lors de la mise à jour de son statut. Les statuts possibles sont : `pending`, `approved`, `rejected`, `cancelled`.  
 Pour la démonstration, ce microservice ne fait qu’enregistrer les notifications dans la base de données (table `notifications` vue dans le [database.md](../database.md)).
+Le microservice fournira aussi une méthode pour extraire les réservations d’un utilisateur au format CSV, la stocker sur MinIO, et renvoyer une URL de téléchargement.
 
 ---
 
@@ -74,3 +75,14 @@ Pour la démonstration, ce microservice ne fait qu’enregistrer les notificatio
     }
 </pre>
 
+### 2.4. ExportReservations
+<pre>
+    input : 
+    {
+        "user_id": number
+    }
+    output : 
+    {
+        "url": string
+    }
+</pre>

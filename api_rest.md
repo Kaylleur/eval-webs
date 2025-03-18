@@ -111,6 +111,11 @@ Query parameters (optionnels) :
 - skip: number
 - limit: number
 
+Codes de statut possibles :
+200 OK
+400 Bad Request
+401 Unauthorized
+
 Réponse :
 {
   "reservations": [
@@ -132,6 +137,11 @@ Renvoie la liste paginée des réservations.
 <pre>
 Path parameter :
 - id : identifiant numérique de la réservation
+
+Codes de statut possibles :
+200 OK
+401 Unauthorized
+404 Not Found
 
 Réponse :
 {
@@ -155,7 +165,12 @@ Body (JSON) :
   "end_time": string    // Idem
 }
 
-Réponse (201 Created) :
+Codes de statut possibles :
+201 Created
+400 Bad Request
+401 Unauthorized
+
+Réponse  :
 {
   "id": number,
   "user_id": number,
@@ -171,6 +186,12 @@ Crée une nouvelle réservation et renvoie l’objet créé.
 <pre>
 Path parameter :
 - id : identifiant numérique de la réservation à modifier
+
+Codes de statut possibles :
+200 OK
+400 Bad Request
+401 Unauthorized
+404 Not Found
 
 Body (JSON) :
 {
@@ -197,7 +218,12 @@ Met à jour les informations d’une réservation existante.
 Path parameter :
 - id : identifiant numérique de la réservation
 
-Réponse (204 No Content) :
+Codes de statut possibles :
+204 No Content
+401 Unauthorized
+404 Not Found
+
+Réponse :
 Aucun corps de réponse.
 </pre>
 Supprime une réservation spécifique.
@@ -214,6 +240,10 @@ Body (JSON) :
   "password": string
 }
 
+Codes de statut possibles :
+200 OK
+400 Bad Request
+
 Réponse :
 {
     "accessToken": string
@@ -225,6 +255,11 @@ Réponse :
 Query parameters (optionnels) :
 - skip: number
 - limit: number
+
+Codes de statut possibles :
+200 OK
+400 Bad Request
+401 Unauthorized
 
 Réponse :
 {
@@ -246,6 +281,11 @@ Renvoie la liste paginée des utilisateurs (tels qu’ils sont enregistrés dans
 Path parameter :
 - id : identifiant numérique de l'utilisateur
 
+Codes de statut possibles :
+200 OK
+401 Unauthorized
+404 Not Found
+
 Réponse :
 {
   "id": number,
@@ -255,6 +295,51 @@ Réponse :
 }
 </pre>
 Renvoie les détails d’un utilisateur spécifique.
+
+#### 3. POST /api/users
+Attention pour créer un utilisateur l'application doit être connecté avec un compte admin de Keycloak puis utiliser l'api rest pour créer un utilisateur
+<pre>
+Body (JSON) :
+{
+  username: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  password: string,
+}
+
+Codes de statut possibles :
+201 Created
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+
+Réponse :
+{
+  "id": number,
+  "keycloak_id": string,
+  "created_at": string,
+  "email": string
+}
+// Vous pouvez vérifier le contenu de init-keycloak.js
+</pre>
+
+#### 4. PUT /api/users/{id}/extract
+Cette route permet de générer un fichier CSV récapitulatif des réservations d’un utilisateur, et de renvoyer une URL permettant de le télécharger.
+<pre>
+Path parameter :
+- id : identifiant numérique de l'utilisateur
+
+Codes de statut possibles :
+200 OK
+401 Unauthorized
+404 Not Found
+
+Réponse :
+{
+  "url": string
+}
+</pre>
 
 ---
 
