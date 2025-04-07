@@ -2,6 +2,7 @@ const axios = require('axios');
 const { getToken } = require('../setup');
 const {createRoom} = require("../utils/room.utils");
 const {getPool, closePool} = require("../utils/db.utils");
+const {graphqlRequest} = require("../utils/graphql.utils");
 
 const BASE_URL = process.env.API_GRAPHQL_URL || 'http://localhost:3000/graphql';
 const API_REST_URL = process.env.API_REST_URL || 'http://localhost:3000';
@@ -11,37 +12,6 @@ describe('Reservations E2E Tests', () => {
     let createdRoomId;
     let userId;
     let createdReservationId;
-
-    /**
-     * Fonction utilitaire pour envoyer des requêtes GraphQL.
-     * @param {string} query - La requête ou mutation GraphQL.
-     * @param {object} variables - Les variables associées à la requête/mutation.
-     * @param {string} token - Le token Keycloak.
-     * @returns {Promise<any>} - Retourne la partie "data" de la réponse GraphQL.
-     */
-    async function graphqlRequest(query, variables, token) {
-        try {
-            const response = await axios.post(
-                BASE_URL,
-                { query, variables },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            if (response.data.errors) {
-                throw new Error(
-                    `GraphQL Errors: ${JSON.stringify(response.data.errors, null, 2)}`
-                );
-            }
-            return response.data.data;
-        } catch (error) {
-            throw new Error(`Erreur GraphQL: ${error.message}`);
-        }
-    }
 
     beforeAll(async () => {
         token = getToken();
@@ -92,7 +62,10 @@ describe('Reservations E2E Tests', () => {
             end_time: oneHourLater.toISOString(),
         };
 
+
         const data = await graphqlRequest(mutation, variables, token);
+
+        console.log(data);
 
         expect(data.createReservation).toBeDefined();
         expect(data.createReservation.id).toBeDefined();
@@ -106,7 +79,7 @@ describe('Reservations E2E Tests', () => {
     it('should get the created reservation by ID in database', async () => {
         const pool = getPool();
         const {rows} = await pool.query(
-            `SELECT * FROM reservations WHERE id = $1`,
+            `SELECT * FROM reservation WHERE id = $1`,
             [createdReservationId]
         );
         expect(rows.length).toBe(1);
@@ -118,7 +91,7 @@ describe('Reservations E2E Tests', () => {
     it('should find a notification in table notifications with this reservation id', async () => {
         const pool = getPool();
         const {rows} = await pool.query(
-            `SELECT * FROM notifications WHERE reservation_id = $1`,
+            `SELECT * FROM notification WHERE "reservationId" = $1`,
             [createdReservationId]
         );
         expect(rows.length).toBe(1);

@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 module.exports = {
     defaultUser: {
         username: 'user1',
@@ -29,8 +31,8 @@ module.exports = {
     },
     getUsers: ({base_url, token, params} )=> {
         const url = new URL(`${base_url}/api/users`);
-        if (params.skip) url.searchParams.append('skip', params.skip);
-        if (params.limit) url.searchParams.append('limit', params.limit);
+        if (params && params.skip) url.searchParams.append('skip', params.skip);
+        if (params && params.limit) url.searchParams.append('limit', params.limit);
         return axios.get(
             url.toString(),
             {

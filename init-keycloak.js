@@ -134,4 +134,37 @@ const KcAdminClient = require('keycloak-admin').default;
         ],
     });
     console.log(`Role ${roleAdmin.name} assigned to user ${usersCreated[1].email}.`);
+
+
+    // 8) Donner à "test2" le droit de créer des utilisateurs dans ce *seul* realm
+    //    En Keycloak, il faut lui attribuer le rôle "manage-users" du client "realm-management".
+    const realmManagementClients = await kcAdminClient.clients.find({
+        clientId: 'realm-management',
+    });
+    if (!realmManagementClients.length) {
+        console.error(`Le client "realm-management" est introuvable dans le realm "${REALM_NAME}".`);
+        process.exit(1);
+    }
+
+    const realmManagementClient = realmManagementClients[0];
+    // Récupérer le rôle "manage-users" du client "realm-management"
+    const manageUsersRole = await kcAdminClient.clients.findRole({
+        id: realmManagementClient.id,
+        roleName: 'manage-users',
+    });
+    if (!manageUsersRole) {
+        console.error(`Le rôle "manage-users" n'existe pas pour "realm-management" dans le realm "${REALM_NAME}".`);
+        process.exit(1);
+    }
+
+    // Assigner ce rôle à l'utilisateur test2
+    await kcAdminClient.users.addClientRoleMappings({
+        id: usersCreated[1].id, // test2
+        clientUniqueId: realmManagementClient.id,
+        roles: [
+            { id: manageUsersRole.id, name: manageUsersRole.name },
+        ],
+    });
+    console.log(`Rôle "manage-users" (client "realm-management") assigné à ${usersCreated[1].username}.`);
+
 })();

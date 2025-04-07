@@ -2,39 +2,7 @@
 require('dotenv').config();
 const axios = require('axios');
 const { getToken } = require('../setup');
-
-const BASE_URL = process.env.API_GRAPHQL_URL || 'http://localhost:3000/graphql';
-
-async function graphqlRequest(query, variables, token) {
-    try {
-        const response = await axios.post(
-            BASE_URL,
-            {
-                query,
-                variables,
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
-
-        // Gère les éventuelles erreurs remontées par GraphQL
-        if (response.data.errors) {
-            throw new Error(
-                `GraphQL Errors: ${JSON.stringify(response.data.errors, null, 2)}`
-            );
-        }
-
-        return response.data.data;
-    } catch (error) {
-        throw new Error(
-            `Erreur lors de la requête GraphQL: ${error.message}`
-        );
-    }
-}
+const {graphqlRequest} = require("../utils/graphql.utils");
 
 describe('Rooms E2E Tests', () => {
     let token;
@@ -49,7 +17,7 @@ describe('Rooms E2E Tests', () => {
         const mutation = `
       mutation CreateRoom($name: String!, $capacity: Int!, $location: String) {
         createRoom(name: $name, capacity: $capacity, location: $location) {
-          id
+        id
           name
           capacity
           location
@@ -62,6 +30,7 @@ describe('Rooms E2E Tests', () => {
             capacity: 15,
             location: 'Bâtiment A',
         };
+        console.log(token);
 
         const data = await graphqlRequest(mutation, variables, token);
 

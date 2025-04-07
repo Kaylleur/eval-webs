@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "dotenv -e .env jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -11,18 +11,20 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.13.0",
     "@grpc/proto-loader": "^0.7.13",
-    "axios": "^1.8.3",
+    "axios": "^1.8.4",
     "cookie-parser": "^1.4.6",
     "csv-parser": "^3.2.0",
     "dotenv": "^16.4.7",
+    "dotenv-cli": "^8.0.0",
     "express": "^4.21.0",
-    "jsonwebtoken": "^9.0.2",
     "keycloak-admin": "^1.14.22",
     "node-fetch": "^3.3.2",
     "pg": "^8.14.1"
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.2.0",
     "supertest": "^7.0.0"
   }
 }
