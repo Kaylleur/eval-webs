@@ -46,10 +46,10 @@ async function getAdminAccessToken() {
 async function cleanupTables() {
     console.log('=== Truncating tables ===');
     // Attention à l’ordre si vous avez des clés étrangères
-    await pool.query('TRUNCATE TABLE notification RESTART IDENTITY CASCADE;');
-    await pool.query('TRUNCATE TABLE reservation RESTART IDENTITY CASCADE;');
-    await pool.query('TRUNCATE TABLE room RESTART IDENTITY CASCADE;');
-    await pool.query('TRUNCATE TABLE "user" RESTART IDENTITY CASCADE;');
+    await pool.query('TRUNCATE TABLE notifications RESTART IDENTITY CASCADE;');
+    await pool.query('TRUNCATE TABLE reservations RESTART IDENTITY CASCADE;');
+    await pool.query('TRUNCATE TABLE rooms RESTART IDENTITY CASCADE;');
+    await pool.query('TRUNCATE TABLE "users" RESTART IDENTITY CASCADE;');
 }
 
 async function fetchAndInsertKeycloakUsers(adminToken) {
@@ -72,7 +72,7 @@ async function fetchAndInsertKeycloakUsers(adminToken) {
         // Insertion dans la table "users" locale
         // Champs : keycloak_id, email, created_at
         await pool.query(
-            `INSERT INTO "user" ("keycloakId", email, "createdAt", "updatedAt")
+            `INSERT INTO "users" ("keycloak_id", email, "created_at", "updated_at")
        VALUES ($1, $2, NOW(), NOW())
        ON CONFLICT ("keycloakId") DO NOTHING;`,
             [keycloakId, email]

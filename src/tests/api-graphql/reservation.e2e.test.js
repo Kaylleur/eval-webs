@@ -77,7 +77,7 @@ describe('Reservations E2E Tests', () => {
     it('should get the created reservation by ID in database', async () => {
         const pool = getPool();
         const {rows} = await pool.query(
-            `SELECT * FROM reservation WHERE id = $1`,
+            `SELECT * FROM reservations WHERE id = $1`,
             [createdReservationId]
         );
         expect(rows.length).toBe(1);
@@ -89,7 +89,7 @@ describe('Reservations E2E Tests', () => {
     it('should find a notification in table notifications with this reservation id', async () => {
         const pool = getPool();
         const {rows} = await pool.query(
-            `SELECT * FROM notification WHERE "reservationId" = $1`,
+            `SELECT * FROM notifications WHERE "reservation_id" = $1`,
             [createdReservationId]
         );
         expect(rows.length).toBe(1);

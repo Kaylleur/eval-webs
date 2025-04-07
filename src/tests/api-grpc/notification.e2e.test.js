@@ -24,7 +24,7 @@ describe('GRPC Notification Tests', () => {
     userId = user.id;
 
     const roomRes = await pool.query(
-      `INSERT INTO room (name, capacity, location, "createdAt")
+      `INSERT INTO rooms (name, capacity, location, created_at)
        VALUES ('Test', 10, 'Second floor', NOW())
        RETURNING *`,);
     const roomRows = roomRes.rows;
@@ -35,7 +35,7 @@ describe('GRPC Notification Tests', () => {
     roomId = room.id;
 
     const reservationRes = await pool.query(
-      `INSERT INTO reservation ("userId", "roomId", "startTime", "endTime", status, "createdAt")
+      `INSERT INTO reservations ("user_id", "room_id", "start_time", "end_time", status, created_at)
        VALUES ($1, $2, NOW(), NOW(), 'pending', NOW())
        RETURNING *`,
       [user.id, room.id]
