@@ -78,7 +78,7 @@ Cette table stocke les notifications envoyées ou à envoyer (pour la démonstra
 **Clés et contraintes :**
 - **PK** : `id` est la clé primaire.
 - **FK** :
-    - `reservation_id` fait référence à `reservations.id`.
+- `reservation_id` fait référence à `reservations.id`.
 - `is_sent` peut être initialisé à `FALSE` par défaut.
 
 ## 5. Exemple d'entités de TypeORM

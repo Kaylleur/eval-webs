@@ -2,7 +2,9 @@ const axios = require('axios');
 const {getToken} = require('../setup');
 const {createRoom, defaultRoom} = require("../utils/room.utils");
 const {getUsers} = require("../utils/user.utils");
-const {getPool, closePool} = require("../utils/db.utils");
+const {getPool, closePool} = require("../utils/db.utils");const { Readable } = require('stream');
+  const csv = require('csv-parser');
+
 
 const BASE_URL = process.env.API_REST_URL;
 
@@ -58,11 +60,11 @@ describe('Reservations E2E Tests', () => {
     const pool = getPool();
     const {rows} = await pool.query(
       `SELECT *
-       FROM reservation
+       FROM reservations
        WHERE id = $1`,
       [createdReservationId]
-    );
-    console.log(createdReservationId);
+    )
+    expect(rows).toBeDefined()
     expect(rows.length).toBe(1);
     expect(rows[0].userId).toBe(userId);
     expect(rows[0].roomId).toBe(createdRoomId);
@@ -73,12 +75,11 @@ describe('Reservations E2E Tests', () => {
     const pool = getPool();
     const {rows} = await pool.query(
       `SELECT *
-       FROM notification
+       FROM notifications
        WHERE "reservationId" = $1`,
       [createdReservationId]
     );
 
-    console.log(createdReservationId);
     expect(rows.length).toBe(1);
     await closePool();
   });
@@ -93,8 +94,6 @@ describe('Reservations E2E Tests', () => {
       }
     );
 
-    console.log(response.data);
-
     expect(response.status).toBe(200);
     expect(response.data.id).toBe(createdReservationId);
     expect(response.data.user.id).toBe(userId);
@@ -105,8 +104,8 @@ describe('Reservations E2E Tests', () => {
     const response = await axios.put(
       `${BASE_URL}/api/reservations/${createdReservationId}`,
       {
-        start_time: '2025-06-02T10:00:00Z',
-        end_time: '2025-06-02T12:00:00Z',
+        startTime: '2025-06-02T10:00:00Z',
+        endTime: '2025-06-02T12:00:00Z',
         status: 'approved'
       },
       {
@@ -128,10 +127,11 @@ describe('Reservations E2E Tests', () => {
     const pool = getPool();
     const {rows} = await pool.query(
       `SELECT *
-       FROM notification
+       FROM notifications
        WHERE "reservationId" = $1`,
       [createdReservationId]
     );
+    expect(rows).toBeDefined()
     expect(rows.length).toBe(2);
     await closePool();
   });
@@ -146,8 +146,6 @@ describe('Reservations E2E Tests', () => {
         }
       }
     );
-
-    console.log(response.data);
 
     expect(response.status).toBe(200);
     expect(Array.isArray(response.data.reservations)).toBe(true);
@@ -171,17 +169,20 @@ describe('Reservations E2E Tests', () => {
           }
         }
       );
-      console.log(token);
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
       expect(response.data).toHaveProperty('url');
       //download url
       const url = response.data.url;
       //get the file
+
+      console.log('response.data',response.data);
+      console.log('url', url);
       const file = await axios.get(url);
+      console.log(file.status);
       expect(file.status).toBe(200);
 
       const fileStream = new Readable();
-      fileStream.push(fileResponse.data);
+      fileStream.push(file.data);
       fileStream.push(null);
 
       const results = [];
@@ -191,11 +192,11 @@ describe('Reservations E2E Tests', () => {
           console.log(results);
           // Vérifiez le contenu du fichier CSV
           expect(results.length).toBeGreaterThan(0);
-          expect(results[0]).toHaveProperty('reservation_id');
-          expect(results[0]).toHaveProperty('user_id');
-          expect(results[0]).toHaveProperty('room_id');
-          expect(results[0]).toHaveProperty('start_time');
-          expect(results[0]).toHaveProperty('end_time');
+          expect(results[0]).toHaveProperty('reservationId');
+          expect(results[0]).toHaveProperty('userId');
+          expect(results[0]).toHaveProperty('roomId');
+          expect(results[0]).toHaveProperty('startTime');
+          expect(results[0]).toHaveProperty('endTime');
           expect(results[0]).toHaveProperty('status');
         });
     } catch (err) {

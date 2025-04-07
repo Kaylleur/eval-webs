@@ -15,7 +15,7 @@ describe('Rooms E2E Tests', () => {
 
     it('should create a new room', async () => {
         const mutation = `
-      mutation CreateRoom($name: String!, $capacity: Int!, $location: String) {
+      mutation CreateRoom($name: String!, $capacity: Float!, $location: String!) {
         createRoom(name: $name, capacity: $capacity, location: $location) {
         id
           name
@@ -30,7 +30,6 @@ describe('Rooms E2E Tests', () => {
             capacity: 15,
             location: 'Bâtiment A',
         };
-        console.log(token);
 
         const data = await graphqlRequest(mutation, variables, token);
 

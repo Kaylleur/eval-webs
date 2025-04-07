@@ -4,7 +4,6 @@ const {createRoom} = require("../utils/room.utils");
 const {getPool, closePool} = require("../utils/db.utils");
 const {graphqlRequest} = require("../utils/graphql.utils");
 
-const BASE_URL = process.env.API_GRAPHQL_URL || 'http://localhost:3000/graphql';
 const API_REST_URL = process.env.API_REST_URL || 'http://localhost:3000';
 
 describe('Reservations E2E Tests', () => {
@@ -65,7 +64,6 @@ describe('Reservations E2E Tests', () => {
 
         const data = await graphqlRequest(mutation, variables, token);
 
-        console.log(data);
 
         expect(data.createReservation).toBeDefined();
         expect(data.createReservation.id).toBeDefined();

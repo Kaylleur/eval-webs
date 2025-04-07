@@ -41,8 +41,8 @@ describe('Users E2E Tests', () => {
         });
       expect(response.status).toBe(201);
       expect(response.data).toHaveProperty('id');
-      expect(response.data).toHaveProperty('keycloak_id');
-      expect(response.data).toHaveProperty('created_at');
+      expect(response.data).toHaveProperty('keycloakId');
+      expect(response.data).toHaveProperty('createdAt');
       expect(response.data).toHaveProperty('email');
 
       newUserId = response.data.id;

@@ -26,7 +26,9 @@ module.exports = {
     getPackage(name) {
         return protoDescriptor[name];
     },
-    getClient(package) {
-        return package(process.env.PROTO_URL || 'localhost:50051', grpc.credentials.createInsecure());
+    getConfig() {
+        return {
+            url: process.env.PROTO_URL || 'localhost:50051', insecure: grpc.credentials.createInsecure()
+        }
     }
 }
