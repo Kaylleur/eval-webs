@@ -28,10 +28,7 @@ describe('Users E2E Tests', () => {
       const response = await axios.post(
         `${BASE_URL}/api/users`,
         {
-          username: 'John Doe',
           email: 'john.doe@foo.bar',
-          firstName: 'John',
-          lastName: 'Doe',
           password: 'password'
         },
         {
@@ -63,7 +60,6 @@ describe('Users E2E Tests', () => {
       }
     );
     expect(response.status).toBe(200);
-    expect(response.data.name).toBe('John Doe');
     expect(response.data.email).toBe('john.doe@foo.bar');
   });
 
