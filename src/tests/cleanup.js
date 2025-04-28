@@ -75,7 +75,7 @@ async function fetchAndInsertKeycloakUsers(adminToken) {
         await pool.query(
             `INSERT INTO "users" ("keycloak_id", email, "created_at", "updated_at")
        VALUES ($1, $2, NOW(), NOW())
-       ON CONFLICT ("keycloakId") DO NOTHING;`,
+       ON CONFLICT ("keycloak_id") DO NOTHING;`,
             [keycloakId, email]
         );
     }

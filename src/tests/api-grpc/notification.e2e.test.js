@@ -16,7 +16,7 @@ describe('GRPC Notification Tests', () => {
 
     const userRes = await pool.query(
       `SELECT *
-       FROM "user"`);
+       FROM "users"`);
     const userRows = userRes.rows;
     expect(userRows).toBeDefined()
     expect(userRows.length).toBeGreaterThanOrEqual(1);
