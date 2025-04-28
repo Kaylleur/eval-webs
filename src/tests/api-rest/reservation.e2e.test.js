@@ -66,8 +66,8 @@ describe('Reservations E2E Tests', () => {
     )
     expect(rows).toBeDefined()
     expect(rows.length).toBe(1);
-    expect(rows[0].userId).toBe(userId);
-    expect(rows[0].roomId).toBe(createdRoomId);
+    expect(rows[0].user_id).toBe(userId);
+    expect(rows[0].room_id).toBe(createdRoomId);
     await closePool();
   });
 
@@ -76,7 +76,7 @@ describe('Reservations E2E Tests', () => {
     const {rows} = await pool.query(
       `SELECT *
        FROM notifications
-       WHERE "reservationId" = $1`,
+       WHERE "reservation_id" = $1`,
       [createdReservationId]
     );
 
@@ -114,11 +114,10 @@ describe('Reservations E2E Tests', () => {
         }
       }
     );
-
     expect(response.status).toBe(200);
     expect(response.data.id).toBe(createdReservationId);
-    expect(response.data.startTime).toMatch(/2025-06-02T10:00:00.000Z/);
-    expect(response.data.endTime).toMatch(/2025-06-02T12:00:00.000Z/);
+    expect(response.data.startTime).toMatch("2025-06-02T10:00:00.000Z");
+    expect(response.data.endTime).toMatch("2025-06-02T12:00:00.000Z");
     expect(response.data.status).toBe('approved');
   });
 
@@ -128,7 +127,7 @@ describe('Reservations E2E Tests', () => {
     const {rows} = await pool.query(
       `SELECT *
        FROM notifications
-       WHERE "reservationId" = $1`,
+       WHERE "reservation_id" = $1`,
       [createdReservationId]
     );
     expect(rows).toBeDefined()
@@ -148,11 +147,11 @@ describe('Reservations E2E Tests', () => {
     );
 
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.data.reservations)).toBe(true);
+    expect(Array.isArray(response.data)).toBe(true);
 
     // Optionnel : vérifier si la réservation qu’on vient de créer est dans la liste
     // par exemple en cherchant son ID
-    const found = response.data.reservations.some(
+    const found = response.data.some(
       (r) => r.id === createdReservationId
     );
     expect(found).toBe(true);
@@ -174,6 +173,7 @@ describe('Reservations E2E Tests', () => {
       //download url
       const url = response.data.url;
       //get the file
+
 
       console.log('response.data',response.data);
       console.log('url', url);
@@ -200,7 +200,7 @@ describe('Reservations E2E Tests', () => {
           expect(results[0]).toHaveProperty('status');
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       throw err;
     }
   });

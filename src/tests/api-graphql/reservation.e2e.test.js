@@ -64,6 +64,8 @@ describe('Reservations E2E Tests', () => {
 
         const data = await graphqlRequest(mutation, variables, token);
 
+        console.log(data);
+
 
         expect(data.createReservation).toBeDefined();
         expect(data.createReservation.id).toBeDefined();

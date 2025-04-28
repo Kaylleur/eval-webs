@@ -10,6 +10,7 @@ module.exports = {
         '**/src/**/*.js'
     ],
     // Si vous souhaitez ignorer certains dossiers:
-    "testPathIgnorePatterns": ["/node_modules/", "/dist/"]
+    "testPathIgnorePatterns": ["/node_modules/", "/dist/"],
+    "maxWorkers":1
 };
 
