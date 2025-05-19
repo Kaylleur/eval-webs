@@ -27,14 +27,17 @@ describe('Reservations E2E Tests', () => {
         })
         createdRoomId = roomRes.data.id;
 
+        console.log(createdRoomId);
+
         // 2. Récupérer un user existant via l’API REST
         const responseUsers = await axios.get(`${API_REST_URL}/api/users`, {
             headers: { Authorization: `Bearer ${token}` },
         });
-        if (responseUsers.data.length === 0) {
+        console.log(responseUsers.data);
+        if (responseUsers.data.users.length === 0) {
             throw new Error('No user found');
         }
-        userId = responseUsers.data[0].id;
+        userId = responseUsers.data.users[0].id;
     });
 
     it('should create a reservation using the created room', async () => {
@@ -56,7 +59,7 @@ describe('Reservations E2E Tests', () => {
 
         const variables = {
             user_id: userId,
-            room_id: parseInt(createdRoomId, 10), // selon comment est géré l'ID
+            room_id: createdRoomId, // selon comment est géré l'ID
             start_time: now.toISOString(),
             end_time: oneHourLater.toISOString(),
         };
@@ -70,7 +73,7 @@ describe('Reservations E2E Tests', () => {
         expect(data.createReservation).toBeDefined();
         expect(data.createReservation.id).toBeDefined();
         expect(data.createReservation.user_id).toBe(userId);
-        expect(data.createReservation.room_id).toBe(parseInt(createdRoomId, 10));
+        expect(data.createReservation.room_id).toBe(createdRoomId);
 
         // On stocke l'ID de la réservation pour les tests suivants
         createdReservationId = data.createReservation.id;
@@ -117,7 +120,7 @@ describe('Reservations E2E Tests', () => {
         expect(data.reservation).toBeDefined();
         expect(data.reservation.id).toBe(createdReservationId);
         expect(data.reservation.user_id).toBe(userId);
-        expect(data.reservation.room_id).toBe(parseInt(createdRoomId, 10));
+        expect(data.reservation.room_id).toBe(createdRoomId);
     });
 
     it('should update the reservation times', async () => {
@@ -178,7 +181,7 @@ describe('Reservations E2E Tests', () => {
         );
         expect(found).toBeDefined();
         expect(found.user_id).toBe(userId);
-        expect(found.room_id).toBe(parseInt(createdRoomId, 10));
+        expect(found.room_id).toBe(createdRoomId);
     });
 
     it('should delete the created reservation', async () => {
