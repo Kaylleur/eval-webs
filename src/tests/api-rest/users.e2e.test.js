@@ -5,6 +5,7 @@ const {defaultUser} = require("../utils/user.utils");
 const BASE_URL = process.env.API_REST_URL || 'http://localhost:3000';
 
 let usrToken = '',admToken= '', adminToken = '';
+let timestamp = new Date().getTime();
 
 describe('Users E2E Tests', () => {
   beforeAll(async () => {
@@ -31,9 +32,9 @@ describe('Users E2E Tests', () => {
       const response = await axios.post(
         `${BASE_URL}/api/users`,
         {
-          email: `john.doe_${new Date().getTime()}@foo.bar`,
+          email: `john.doe_${timestamp}@foo.bar`,
           password: 'password',
-          username: `john_doe_${new Date().getTime()}`,
+          username: `john_doe_${timestamp}`,
           firstName: "john",
           lastName: "doe",
         },
@@ -68,7 +69,7 @@ describe('Users E2E Tests', () => {
       }
     );
     expect(response.status).toBe(200);
-    expect(response.data.email).toBe('john.doe@foo.bar');
+    expect(response.data.email).toBe(`john.doe_${timestamp}@foo.bar`);
   });
 
   it('should retrieve the user in list of users', async () => {
