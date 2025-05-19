@@ -32,7 +32,10 @@ describe('Users E2E Tests', () => {
         `${BASE_URL}/api/users`,
         {
           email: 'john.doe@foo.bar',
-          password: 'password'
+          password: 'password',
+          username: "john_doe",
+          firstName: "john",
+          lastName: "doe",
         },
         {
           headers: {
