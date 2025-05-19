@@ -23,7 +23,7 @@ const graphqlQuery = async (query, variables, token) => {
   );
 
   if (response.data.errors) {
-    console.log(response.data.errors)
+    //console.log(response.data.errors)
     throw response.data.errors;
   }
   return response.data.data;

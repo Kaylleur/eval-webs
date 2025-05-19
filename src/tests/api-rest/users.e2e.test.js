@@ -50,8 +50,8 @@ describe('Users E2E Tests', () => {
       expect(response.data).toHaveProperty('email');
 
       newUserId = response.data.id;
-      console.log(response.data);
-      console.log(newUserId);
+      //console.log(response.data);
+      //console.log(newUserId);
     } catch (err) {
       console.error(err);
       console.error('Error creating user:', err.response.data);

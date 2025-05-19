@@ -27,13 +27,13 @@ describe('Reservations E2E Tests', () => {
         })
         createdRoomId = roomRes.data.id;
 
-        console.log(createdRoomId);
+        //console.log(createdRoomId);
 
         // 2. Récupérer un user existant via l’API REST
         const responseUsers = await axios.get(`${API_REST_URL}/api/users`, {
             headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(responseUsers.data);
+        //console.log(responseUsers.data);
         if (responseUsers.data.users.length === 0) {
             throw new Error('No user found');
         }
@@ -67,7 +67,7 @@ describe('Reservations E2E Tests', () => {
 
         const data = await graphqlRequest(mutation, variables, token);
 
-        console.log(data);
+        //console.log(data);
 
 
         expect(data.createReservation).toBeDefined();

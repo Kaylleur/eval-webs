@@ -176,10 +176,10 @@ describe('Reservations E2E Tests', () => {
       //get the file
 
 
-      console.log('response.data',response.data);
-      console.log('url', url);
+      //console.log('response.data',response.data);
+      //console.log('url', url);
       const file = await axios.get(url);
-      console.log(file.status);
+      //console.log(file.status);
       expect(file.status).toBe(200);
 
       const fileStream = new Readable();
@@ -190,7 +190,7 @@ describe('Reservations E2E Tests', () => {
       fileStream.pipe(csv())
         .on('data', (data) => results.push(data))
         .on('end', () => {
-          console.log(results);
+          //console.log(results);
           // Vérifiez le contenu du fichier CSV
           expect(results.length).toBeGreaterThan(0);
           expect(results[0]).toHaveProperty('reservationId');
@@ -201,7 +201,7 @@ describe('Reservations E2E Tests', () => {
           expect(results[0]).toHaveProperty('status');
         });
     } catch (err) {
-      // console.log(err);
+      // //console.log(err);
       throw err;
     }
   });
