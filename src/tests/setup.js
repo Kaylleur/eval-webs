@@ -3,14 +3,15 @@ const request = require('supertest');
 const jwksClient = require('jwks-rsa');
 const jwt = require('jsonwebtoken');
 
-let keycloakAccessToken = '';
+let keycloakUsrAccessToken = '';
+let keycloakAdmAccessToken = '';
 let keycloakAdminToken = '';
 
 /**
  * Récupère un token Keycloak via le flow "Resource Owner Password Credentials"
  * et le stocke dans keycloakAccessToken.
  */
-async function getKeycloakToken() {
+async function getKeycloakUsrToken() {
   const res = await request(process.env.KEYCLOAK_URL)
     .post(`/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`)
     .type('form')
@@ -18,15 +19,37 @@ async function getKeycloakToken() {
       grant_type: 'password',
       client_id: process.env.KEYCLOAK_CLIENT_ID,
       client_secret: process.env.KEYCLOAK_CLIENT_SECRET, // si le client est en mode "confidential"
-      username: process.env.KEYCLOAK_TEST_USERNAME,
-      password: process.env.KEYCLOAK_TEST_PASSWORD,
+      username: process.env.KEYCLOAK_TEST_USR_USERNAME,
+      password: process.env.KEYCLOAK_TEST_USR_PASSWORD,
     });
 
   if (res.status !== 200) {
     throw new Error(`Impossible de récupérer le token Keycloak: ${res.text}`);
   }
 
-  keycloakAccessToken = res.body.access_token;
+  keycloakUsrAccessToken = res.body.access_token;
+}
+/**
+ * Récupère un token Keycloak via le flow "Resource Owner Password Credentials"
+ * et le stocke dans keycloakAccessToken.
+ */
+async function getKeycloakAdmToken() {
+  const res = await request(process.env.KEYCLOAK_URL)
+    .post(`/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`)
+    .type('form')
+    .send({
+      grant_type: 'password',
+      client_id: process.env.KEYCLOAK_CLIENT_ID,
+      client_secret: process.env.KEYCLOAK_CLIENT_SECRET, // si le client est en mode "confidential"
+      username: process.env.KEYCLOAK_TEST_ADM_USERNAME,
+      password: process.env.KEYCLOAK_TEST_ADM_PASSWORD,
+    });
+
+  if (res.status !== 200) {
+    throw new Error(`Impossible de récupérer le token Keycloak: ${res.text}`);
+  }
+
+  keycloakAdmAccessToken = res.body.access_token;
 }
 
 /**
@@ -58,8 +81,12 @@ async function getKeycloakAdminToken() {
 }
 
 // Getter pour récupérer le token dans d'autres fichiers de test
-function getToken() {
-  return keycloakAccessToken;
+function getUsrToken() {
+  return keycloakUsrAccessToken;
+}
+// Getter pour récupérer le token dans d'autres fichiers de test
+function getAdmToken() {
+  return keycloakUsrAccessToken;
 }
 
 function getAdminToken() {
@@ -111,12 +138,14 @@ async function verifyJwtToken(token) {
 
 // Hook Jest appelé avant tous les tests
 beforeAll(async () => {
-  await getKeycloakToken();
-  await getKeycloakAdminToken();
+  await getKeycloakUsrToken();
+  await getKeycloakAdminToken()
+  await getKeycloakAdmToken();
 }, 30000); // Timeout plus large si nécessaire
 
 module.exports = {
-  getToken,
+  getUsrToken,
+  getAdmToken,
   getAdminToken,
   verifyJwtToken,
 };

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
-const {getToken} = require('../setup');
+const {getUsrToken} = require('../setup');
 const {graphqlRequest} = require("../utils/graphql.utils");
 
 describe('Rooms E2E Tests', () => {
@@ -9,7 +9,7 @@ describe('Rooms E2E Tests', () => {
 
   beforeAll(() => {
     // Récupère le token Keycloak initialisé par setupKeycloak.js
-    token = getToken();
+    token = getUsrToken();
   });
 
   it('should create a new room', async () => {

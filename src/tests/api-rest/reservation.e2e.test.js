@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {getToken} = require('../setup');
+const {getUsrToken} = require('../setup');
 const {createRoom, defaultRoom} = require("../utils/room.utils");
 const {getUsers} = require("../utils/user.utils");
 const {getPool, closePool} = require("../utils/db.utils");const { Readable } = require('stream');
@@ -14,7 +14,7 @@ describe('Reservations E2E Tests', () => {
   let userId;
 
   beforeAll(async () => {
-    token = getToken();
+    token = getUsrToken();
 
     const roomRes = await createRoom({
       base_url: process.env.API_REST_URL,
