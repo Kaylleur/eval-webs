@@ -2,7 +2,8 @@ const axios = require('axios');
 const {getUsrToken} = require('../setup');
 const {createRoom, defaultRoom} = require("../utils/room.utils");
 const {getUsers} = require("../utils/user.utils");
-const {getPool, closePool} = require("../utils/db.utils");const { Readable } = require('stream');
+const {getPool, closePool} = require("../utils/db.utils");
+const { Readable } = require('stream');
   const csv = require('csv-parser');
 
 

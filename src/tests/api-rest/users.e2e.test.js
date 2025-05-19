@@ -53,6 +53,7 @@ describe('Users E2E Tests', () => {
       console.log(response.data);
       console.log(newUserId);
     } catch (err) {
+      console.error(err);
       console.error('Error creating user:', err.response.data);
       throw err;
     }
