@@ -21,7 +21,6 @@ describe('Users E2E Tests', () => {
 
     adminToken = getAdminToken();
     expect(adminToken).toBeDefined();
-    const adminDecoded = await verifyJwtToken(adminToken);
   });
 
   let newUserId;
@@ -47,6 +46,8 @@ describe('Users E2E Tests', () => {
       expect(response.data).toHaveProperty('email');
 
       newUserId = response.data.id;
+      console.log(response.data);
+      console.log(newUserId);
     } catch (err) {
       console.error('Error creating user:', err.response.data);
       throw err;
