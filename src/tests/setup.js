@@ -86,7 +86,7 @@ function getUsrToken() {
 }
 // Getter pour récupérer le token dans d'autres fichiers de test
 function getAdmToken() {
-  return keycloakUsrAccessToken;
+  return keycloakAdmAccessToken;
 }
 
 function getAdminToken() {
