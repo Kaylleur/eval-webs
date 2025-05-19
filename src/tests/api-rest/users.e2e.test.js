@@ -31,9 +31,9 @@ describe('Users E2E Tests', () => {
       const response = await axios.post(
         `${BASE_URL}/api/users`,
         {
-          email: 'john.doe@foo.bar',
+          email: `john.doe_${new Date().getTime()}@foo.bar`,
           password: 'password',
-          username: "john_doe",
+          username: `john_doe_${new Date().getTime()}`,
           firstName: "john",
           lastName: "doe",
         },
